@@ -1,7 +1,14 @@
 class Knight < Piece
-
-  POSSIBLE_CHANGES = [[1, 2], [2, 1], [-1, 2], [-2, -1],
-                      [-2, 1], [1, -2], [2, -1], [-1, -2]]
+  POSSIBLE_CHANGES = [
+    [1, 2],
+    [2, 1],
+    [-1, 2],
+    [-2, -1],
+    [-2, 1],
+    [1, -2],
+    [2, -1],
+    [-1, -2]
+  ]
 
   def initialize(board,position,color)
     mark = color == :white ? " " + "\u2658".encode + " " : " " + "\u265E".encode + " "
@@ -28,5 +35,4 @@ class Knight < Piece
   def valid_move?(pos)
     moves.include?(pos)
   end
-
 end

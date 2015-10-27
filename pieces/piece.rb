@@ -1,5 +1,4 @@
 class Piece
-
   attr_reader :color, :mark, :position
 
   def initialize(board, position, mark, color)
@@ -11,10 +10,6 @@ class Piece
 
   def to_s
     @mark
-  end
-
-  def valid_move?(new_pos)
-    "WRITE"
   end
 
   def update_pos(new_pos, upgrade = false)

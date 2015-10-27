@@ -1,7 +1,6 @@
 require_relative "../board"
 require_relative "slideable"
 
-
 class Queen < Piece
   include Slideable
 
@@ -11,7 +10,6 @@ class Queen < Piece
   end
 
   def moves
-
     possible_moves = []
 
     straight_lines = diagonal(@position)
@@ -68,5 +66,4 @@ class Queen < Piece
   def valid_move?(new_pos)
     moves.include?(new_pos)
   end
-
 end

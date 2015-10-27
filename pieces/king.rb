@@ -1,6 +1,14 @@
 class King < Piece
-
-  POSSIBLE_CHANGES = [[0,1], [1,1],[1,0], [1,-1], [0,-1], [-1,-1], [-1,0], [-1,1]]
+  POSSIBLE_CHANGES = [
+    [0, 1],
+    [1, 1],
+    [1, 0],
+    [1, -1],
+    [0, -1],
+    [-1, -1],
+    [-1, 0],
+    [-1, 1]
+  ]
 
   def initialize(board,position,color)
     mark = color == :white ? " " + "\u2654".encode + " " : " " + "\u265A".encode + " "
@@ -27,5 +35,4 @@ class King < Piece
   def valid_move?(pos)
     moves.include?(pos)
   end
-
 end

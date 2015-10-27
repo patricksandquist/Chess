@@ -36,7 +36,6 @@ class Rook < Piece
           possible_moves << step
         end
       end
-      # possible_moves << new_pos
     end
 
     possible_moves

@@ -49,10 +49,12 @@ class Board
 
     @grid[start[0]][start[1]] = EmptyPiece.new(self,[start[0],start[1]])
     if piece_exist?(end_pos)
-
       captured = piece_at_position(end_pos)
-      captured.color == :white ? @captured_white << captured.mark : @captured_black << captured.mark
-
+      if captured.color == :white
+        @captured_white << captured.mark
+      else
+        @captured_black << captured.mark
+      end
     end
     @grid[end_pos[0]][end_pos[1]] = move_piece
     move_piece.update_pos(end_pos, true)
@@ -91,11 +93,7 @@ class Board
   end
 
   def other_color(color)
-    if color == :white
-      return :black
-    else
-      return :white
-    end
+    color == :white ? :black : :white
   end
 
   def find_king(color)
@@ -107,9 +105,7 @@ class Board
 
   def valid_move?(piece, start, end_pos)
     raise InvalidMoveError if start == end_pos
-    unless piece.valid_move?(end_pos)
-      raise InvalidMoveError
-    end
+    raise InvalidMoveError unless piece.valid_move?(end_pos)
   end
 
   def piece_exist?(pos)
@@ -151,7 +147,6 @@ class Board
       end
     end
   end
-
 end
 
 class NoPieceError < StandardError
