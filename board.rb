@@ -1,13 +1,6 @@
 require_relative "display.rb"
 require_relative "cursorable.rb"
-require_relative "piece"
-require_relative "empty_piece"
-require_relative "bishop"
-require_relative "rook"
-require_relative "queen"
-require_relative "king"
-require_relative "knight"
-require_relative "pawn"
+require_relative "pieces"
 
 class Board
 
@@ -25,49 +18,25 @@ class Board
   end
 
   def populate
-    pop_grid = Array.new(8){Array.new(8)}
-    pop_grid.each_with_index do |row,row_idx|
+    pop_grid = Array.new(8){ Array.new(8) }
+    pop_grid.each_with_index do |row, row_idx|
       row.each_with_index do |el, col_idx|
-        pop_grid[row_idx][col_idx] = EmptyPiece.new(self,[row_idx,col_idx])
+        pop_grid[row_idx][col_idx] = EmptyPiece.new(self, [row_idx, col_idx])
       end
     end
-    # pop_grid[7][7] = Piece.new(" X ",[7,7])
 
-    pop_grid[0][0] = Rook.new(self, [0,0], :black)
-    pop_grid[0][1] = Knight.new(self, [0,1], :black)
-    pop_grid[0][2] = Bishop.new(self, [0,2], :black)
-    pop_grid[0][3] = King.new(self, [0,3], :black)
-    pop_grid[0][4] = Queen.new(self, [0,4], :black)
-    pop_grid[0][5] = Bishop.new(self, [0,5], :black)
-    pop_grid[0][6] = Knight.new(self, [0,6], :black)
-    pop_grid[0][7] = Rook.new(self, [0,7], :black)
+    [:white, :black].each do |color|
+      back_pieces = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook]
+      back_idx = (color == :white) ? 7 : 0
+      pawn_idx = (color == :white) ? 6 : 1
 
-    pop_grid[1][0] = Pawn.new(self, [1,0], :black)
-    pop_grid[1][1] = Pawn.new(self, [1,1], :black)
-    pop_grid[1][2] = Pawn.new(self, [1,2], :black)
-    pop_grid[1][3] = Pawn.new(self, [1,3], :black)
-    pop_grid[1][4] = Pawn.new(self, [1,4], :black)
-    pop_grid[1][5] = Pawn.new(self, [1,5], :black)
-    pop_grid[1][6] = Pawn.new(self, [1,6], :black)
-    pop_grid[1][7] = Pawn.new(self, [1,7], :black)
+      back_pieces.each_with_index do |piece_class, i|
+        pop_grid[back_idx][i] = piece_class.new(self, [back_idx, i], color)
+      end
 
-    pop_grid[7][0] = Rook.new(self, [7,0], :white)
-    pop_grid[7][1] = Knight.new(self, [7,1], :white)
-    pop_grid[7][2] = Bishop.new(self, [7,2], :white)
-    pop_grid[7][3] = King.new(self, [7,3], :white)
-    pop_grid[7][4] = Queen.new(self, [7,4], :white)
-    pop_grid[7][5] = Bishop.new(self, [7,5], :white)
-    pop_grid[7][6] = Knight.new(self, [7,6], :white)
-    pop_grid[7][7] = Rook.new(self, [7,7], :white)
+      8.times { |j| pop_grid[pawn_idx][j] = Pawn.new(self, [pawn_idx, j], color) }
+    end
 
-    pop_grid[6][0] = Pawn.new(self, [6,0], :white)
-    pop_grid[6][1] = Pawn.new(self, [6,1], :white)
-    pop_grid[6][2] = Pawn.new(self, [6,2], :white)
-    pop_grid[6][3] = Pawn.new(self, [6,3], :white)
-    pop_grid[6][4] = Pawn.new(self, [6,4], :white)
-    pop_grid[6][5] = Pawn.new(self, [6,5], :white)
-    pop_grid[6][6] = Pawn.new(self, [6,6], :white)
-    pop_grid[6][7] = Pawn.new(self, [6,7], :white)
     pop_grid
   end
 

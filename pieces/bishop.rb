@@ -1,6 +1,5 @@
-require_relative "board"
+require_relative "../board"
 require_relative "slideable"
-
 
 class Bishop < Piece
   include Slideable
@@ -54,10 +53,8 @@ class Bishop < Piece
           took_piece = true
         end
       end
-
     end
 
     true
   end
-
 end
